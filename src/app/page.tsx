@@ -1,95 +1,108 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { Box, Container, Stack } from "@mui/material";
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+import DotsMask from "src/components/DotsMask";
+
+import AboutView from "src/views/AboutView";
+import FormView from "src/views/FormView";
+import OpeningView from "src/views/OpeningView";
+import SelectionOfIdeasView from "src/views/SelectionOfIdeas";
+import SelectionOfWorksView from "src/views/SelectionOfWorksView";
+import ServicesView from "src/views/ServicesView";
+
+export default function Page() {
+  // --- ELEMENT SECTIONS ---
+
+  const sections = {
+    banner: (
+      <Container
+        component={Stack}
+        maxWidth="xl"
+        sx={{
+          minHeight: "100vh",
+          paddingY: 5,
+        }}
+      >
+        <OpeningView />
+      </Container>
+    ),
+
+    selectionOfWorks: (
+      <Container component={Box} paddingY={{ xs: 10, md: 15 }}>
+        <SelectionOfWorksView />
+      </Container>
+    ),
+
+    selectionOfIdeas: (
+      <Container component={Box} paddingY={{ xs: 10, md: 15 }}>
+        <SelectionOfIdeasView />
+      </Container>
+    ),
+
+    services: (
+      <Box
+        bgcolor="primary.main"
+        color="primary.contrastText"
+        position="relative"
+      >
+        <DotsMask color="#0005" />
+
+        <Container
+          component={Box}
+          position="relative"
+          zIndex={2}
+          paddingY={{ xs: 10, md: 15 }}
+          minHeight="100vh"
+        >
+          <ServicesView />
+        </Container>
+      </Box>
+    ),
+
+    about: (
+      <Box position="relative">
+        <Container
+          component={Box}
+          paddingY={{ xs: 10, md: 15 }}
+          minHeight="100vh"
+        >
+          <AboutView />
+        </Container>
+      </Box>
+    ),
+
+    form: (
+      <Box
+        id="contact"
+        bgcolor="secondary.dark"
+        color="secondary.contrastText"
+        position="relative"
+        overflow="clip"
+      >
+        <DotsMask
+          color="#FFF1"
+          sx={{ scale: "1.5 -1.5", translate: "25% 15%" }}
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Container
+          component={Box}
+          paddingY={{ xs: 10, md: 15 }}
+          minHeight="100vh"
+          maxWidth="md"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <FormView />
+        </Container>
+      </Box>
+    ),
+  };
+
+  return (
+    <>
+      {sections.banner}
+      {sections.selectionOfWorks}
+      {sections.selectionOfIdeas}
+      {sections.services}
+      {sections.about}
+      {sections.form}
+    </>
   );
 }
