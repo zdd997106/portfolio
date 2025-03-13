@@ -22,9 +22,13 @@ declare module "@mui/material/styles" {
 
 // ----------------------------------------------------------------------
 
-export const titleFont = Raleway();
+export const titleFont = Raleway({
+  subsets: ["latin"],
+});
 
-export const defaultFont = Inter();
+export const defaultFont = Inter({
+  subsets: ["latin"],
+});
 
 // ----------------------------------------------------------------------
 
