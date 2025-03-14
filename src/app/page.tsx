@@ -1,6 +1,7 @@
 import { Box, Container, Stack } from "@mui/material";
 
 import DotsMask from "src/components/DotsMask";
+import { Api, PortfolioDto } from "src/types";
 
 import AboutView from "src/views/AboutView";
 import FormView from "src/views/FormView";
@@ -9,7 +10,18 @@ import SelectionOfIdeasView from "src/views/SelectionOfIdeas";
 import SelectionOfWorksView from "src/views/SelectionOfWorksView";
 import ServicesView from "src/views/ServicesView";
 
-export default function Page() {
+// --- CONFIGS ---
+
+const revalidate = Number(process.env.REVALIDATE || 60);
+
+// ----------
+
+export default async function Page() {
+  const response = await fetch(`${process.env.API_URL}`, {
+    next: { revalidate },
+  });
+  const { data } = (await response.json()) as Api.Response<PortfolioDto>;
+
   // --- ELEMENT SECTIONS ---
 
   const sections = {
@@ -22,19 +34,19 @@ export default function Page() {
           paddingY: 5,
         }}
       >
-        <OpeningView />
+        <OpeningView data={data.opening} />
       </Container>
     ),
 
     selectionOfWorks: (
       <Container component={Box} paddingY={{ xs: 10, md: 15 }}>
-        <SelectionOfWorksView />
+        <SelectionOfWorksView data={data.selectionOfWorks} />
       </Container>
     ),
 
     selectionOfIdeas: (
       <Container component={Box} paddingY={{ xs: 10, md: 15 }}>
-        <SelectionOfIdeasView />
+        <SelectionOfIdeasView data={data.selectionOfIdeas} />
       </Container>
     ),
 
@@ -53,7 +65,7 @@ export default function Page() {
           paddingY={{ xs: 10, md: 15 }}
           minHeight="100vh"
         >
-          <ServicesView />
+          <ServicesView data={data.services} />
         </Container>
       </Box>
     ),
@@ -65,7 +77,7 @@ export default function Page() {
           paddingY={{ xs: 10, md: 15 }}
           minHeight="100vh"
         >
-          <AboutView />
+          <AboutView data={data.aboutMe} />
         </Container>
       </Box>
     ),
@@ -89,7 +101,7 @@ export default function Page() {
           minHeight="100vh"
           maxWidth="md"
         >
-          <FormView />
+          <FormView data={data.contact} />
         </Container>
       </Box>
     ),

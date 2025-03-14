@@ -1,8 +1,17 @@
 "use client";
 
+import { Fragment } from "react";
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
 
-export default function OpeningView() {
+import { Portfolio } from "src/types";
+
+// ----------
+
+export interface OpeningViewProps {
+  data: Portfolio.OpeningDto;
+}
+
+export default function OpeningView({ data }: OpeningViewProps) {
   // --- ELEMENT SECTIONS ---
 
   const sections = {
@@ -13,20 +22,13 @@ export default function OpeningView() {
     ),
     text: (
       <StyledTextRoot>
-        <Typography variant="h1">
-          <Box component="b" fontWeight={900}>
-            JS & TS
-          </Box>
-          <br />
-          Full Stack Engineer
-        </Typography>
+        <Typography variant="h1">{decodeText(data.title)}</Typography>
 
         <Typography
           variant="subtitle1"
           sx={{ marginTop: 2, maxWidth: 700, opacity: 0.8 }}
         >
-          Hi I'm Zedd, I build dynamic websites, powerful dashboards, and
-          business applications tailored to real-world needs
+          {data.subtitle}
         </Typography>
       </StyledTextRoot>
     ),
@@ -34,7 +36,7 @@ export default function OpeningView() {
       <Stack direction="row" spacing={2}>
         <ContrastButton href="#contact">Contact me</ContrastButton>
 
-        <ContrastButton variant="outlined" href="/zedd-cv.docx">
+        <ContrastButton variant="outlined" href={data.cv.url}>
           Download CV
         </ContrastButton>
       </Stack>
@@ -111,3 +113,17 @@ const ContrastButton = styled(Button)(({ theme, variant = "contained" }) => ({
       }
     : {}),
 }));
+
+// ----- HELPERS -----
+
+function decodeText(text: string) {
+  return text.split(/\*\*([^]+)\*\*/).map((token, i) =>
+    i % 2 === 0 ? (
+      <Fragment key={i}>{token}</Fragment>
+    ) : (
+      <Box key={i} fontWeight={900}>
+        {token}
+      </Box>
+    ),
+  );
+}

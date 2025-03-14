@@ -1,9 +1,25 @@
 "use client";
 
-import { Box, Card, Stack, styled, SvgIcon, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  Grid2 as Grid,
+  Stack,
+  styled,
+  SvgIcon,
+  Typography,
+} from "@mui/material";
+
+import { Portfolio } from "src/types";
 import Icons, { IconVariant } from "src/icons";
 
-export default function ServicesView() {
+// ----------
+
+export interface ServicesViewProps {
+  data: Portfolio.ServicesDto;
+}
+
+export default function ServicesView({ data }: ServicesViewProps) {
   return (
     <>
       <Stack
@@ -13,26 +29,16 @@ export default function ServicesView() {
         sx={{ minHeight: "30vh" }}
       >
         <Stack flexGrow={1} flexShrink={0} flexBasis={1} spacing={1}>
-          <Typography variant="h2">Services</Typography>
-
-          <Typography variant="body1">
-            I provide full-cycle digital product development, from frontend and
-            backend engineering to database architecture and performance
-            optimization, delivering high-quality, scalable web applications.
-          </Typography>
+          <Typography variant="h2">{data.title}</Typography>
+          <Typography variant="body1">{data.subtitle}</Typography>
         </Stack>
       </Stack>
 
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={5}
-        sx={{ "& > div": { flexGrow: 1, flexBasis: 1, flexShrink: 0 } }}
-      >
-        {services.map((service, index) => {
-          const Icon = Icons[service.icon as IconVariant] || SvgIcon;
+      <Grid container spacing={5}>
+        {data.items.map((service, index) => {
           return (
-            <Stack key={index} component={StyledCard}>
-              <Outline zIndex={2} />
+            <Grid key={index} component={StyledCard} size={{ xs: 12, md: 4 }}>
+              <CardOutline zIndex={2} />
 
               <Stack component={ContentRoot} zIndex={1}>
                 <Stack height="100%" sx={{ translate: "-5px -5px" }}>
@@ -47,13 +53,15 @@ export default function ServicesView() {
 
                   <Typography variant="body2">{service.description}</Typography>
 
-                  <StyledIcon as={Icon} />
+                  <StyledIcon
+                    as={Icons[service.icon as IconVariant] || SvgIcon}
+                  />
                 </Stack>
               </Stack>
-            </Stack>
+            </Grid>
           );
         })}
-      </Stack>
+      </Grid>
     </>
   );
 }
@@ -70,7 +78,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   overflow: "visible",
 }));
 
-const Outline = styled(Box)(() => ({
+const CardOutline = styled(Box)(() => ({
   height: "100%",
   width: "100%",
   border: "solid 5px #FFF",
@@ -98,26 +106,3 @@ const StyledIcon = styled(SvgIcon)(({ theme }) => ({
   paddingTop: theme.spacing(4),
   marginBottom: 0,
 }));
-
-// ----- DATA -----
-
-const services = [
-  {
-    title: "Development",
-    description:
-      "Building high-quality websites and applications with React, Next.js, NestJS, TypeScript, and other modern frameworks.",
-    icon: "LaptopIcon",
-  },
-  {
-    title: "Consulting",
-    description:
-      "Expert guidance on project architecture, performance optimization, frontend, backend, and database design.",
-    icon: "IdeaIcon",
-  },
-  {
-    title: "Support",
-    description:
-      "Ongoing maintenance, performance tuning, and feature enhancements to keep your project running smoothly.",
-    icon: "PowerIcon",
-  },
-];

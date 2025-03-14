@@ -9,16 +9,22 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function FormView() {
+import { Portfolio } from "src/types";
+
+// ----------
+
+export interface FormViewProps {
+  data: Portfolio.ContactDto;
+}
+
+export default function FormView({ data }: FormViewProps) {
   return (
     <>
       <Stack direction="row" alignItems="center" sx={{ minHeight: "30vh" }}>
         <Stack flexGrow={1} flexShrink={0} flexBasis={1} spacing={1}>
-          <Typography variant="h2">Want to work with me?</Typography>
+          <Typography variant="h2">{data.title}</Typography>
 
-          <Typography variant="body1">
-            Fill out the form below to get in touch with me!
-          </Typography>
+          <Typography variant="body1">{data.subtitle}</Typography>
         </Stack>
       </Stack>
 

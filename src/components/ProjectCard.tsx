@@ -8,8 +8,10 @@ export interface ProjectCardProps {
   subtitle: string;
   description: string;
   img?: string;
-  link?: string;
-  github?: string;
+  link?: {
+    website?: string;
+    github?: string;
+  };
 }
 
 export default function ProjectCard({
@@ -18,9 +20,8 @@ export default function ProjectCard({
   description,
   img,
   link,
-  github,
 }: ProjectCardProps) {
-  const onlyLink = link && ![github].some(Boolean);
+  const onlyWebsite = link?.website && ![link?.github].some(Boolean);
 
   // --- ELEMENT SECTIONS ---
 
@@ -40,26 +41,31 @@ export default function ProjectCard({
         {description}
       </Typography>
     ),
-    link: link && (
-      <Link href={link} target="_blank" color="textSecondary" underline="hover">
+    website: link?.website && (
+      <Link
+        href={link.website}
+        target="_blank"
+        color="textSecondary"
+        underline="hover"
+      >
         <Stack direction="row" spacing={0.5} alignItems="center">
           <IconButton size="small" color="inherit">
             <Icons.InternetIcon
               fontSize="inherit"
-              sx={{ fontSize: onlyLink ? "1em" : "1.5em" }}
+              sx={{ fontSize: onlyWebsite ? "1em" : "1.5em" }}
             />
           </IconButton>
 
-          {onlyLink && (
+          {onlyWebsite && (
             <Typography variant="caption" color="textSecondary">
-              {link.replace(/^https:\/\//, "")}
+              {link.website.replace(/^https:\/\//, "")}
             </Typography>
           )}
         </Stack>
       </Link>
     ),
-    github: github && (
-      <Link target="_blank" href={github} color="textSecondary">
+    github: link?.github && (
+      <Link target="_blank" href={link.github} color="textSecondary">
         <IconButton size="small" color="inherit">
           <Icons.GitHubIcon fontSize="inherit" sx={{ fontSize: "1.5em" }} />
         </IconButton>
@@ -80,7 +86,7 @@ export default function ProjectCard({
 
         <Stack direction="row" spacing={1} alignItems="center">
           {sections.github}
-          {sections.link}
+          {sections.website}
         </Stack>
       </Stack>
     </Stack>

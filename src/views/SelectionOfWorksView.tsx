@@ -1,9 +1,19 @@
 "use client";
 
 import { Stack, Typography } from "@mui/material";
+
+import { Portfolio } from "src/types";
 import ProjectCard from "src/components/ProjectCard";
 
-export default function SelectionOfWorksView() {
+// ----------
+
+export interface SelectionOfWorksViewProps {
+  data: Portfolio.SelectionDto;
+}
+
+export default function SelectionOfWorksView({
+  data,
+}: SelectionOfWorksViewProps) {
   return (
     <>
       <Stack
@@ -13,21 +23,20 @@ export default function SelectionOfWorksView() {
       >
         <Stack spacing={1} flexGrow={1} flexShrink={0} flexBasis={1}>
           <Typography variant="h2" sx={{ maxWidth: 500 }}>
-            <a>A Selection of Recent</a> Works
+            {data.title}
           </Typography>
 
           <Typography variant="body1" color="textPrimary">
-            A showcase of projects where I designed, built, and optimized
-            solutions for fintech, SaaS, and IT services
+            {data.subtitle}
           </Typography>
         </Stack>
       </Stack>
 
       <Stack spacing={{ xs: 5, md: 10 }}>
-        {works.map((work, index) => (
+        {data.items.map((work, index) => (
           <ProjectCard
             key={index}
-            img={work.img}
+            img={work.img.url}
             title={work.title}
             subtitle={work.role}
             link={work.link}
@@ -38,39 +47,3 @@ export default function SelectionOfWorksView() {
     </>
   );
 }
-
-// ----- DATA -----
-
-const works = [
-  {
-    title: "Data Management System | MEXC Global",
-    img: "/mexc.png",
-    role: "Frontend Developer | Team Lead",
-    link: "https://www.mexc.com",
-    description:
-      "MEXC Global is one of the largest cryptocurrency exchanges worldwide. As a development team leader, I led the frontend team in building a robust data management system for clients and internal staff, ensuring high performance and scalability.",
-  },
-  {
-    title: "TSMC Online | Cloud Interactive",
-    img: "/tsmc.png",
-    role: "Front-End Developer",
-    description:
-      "TSMC Online is an internal platform providing reports and confidential documents for TSMC's staff and clients. In the project at Cloud Interactive, I played a key role in front-end development, optimizing UI/UX for efficiency and security in handling sensitive data.",
-  },
-  {
-    title: "Swimple",
-    img: "/swimple.png",
-    role: "Full Stack Engineer | Outsourcing",
-    link: "https://swimple.com",
-    description:
-      "Swimple is a marketplace connecting pool owners with renters. I contributed to both frontend and backend development, improving platform usability and responsiveness to enhance the user experience.",
-  },
-  {
-    title: "SparkAmplify",
-    img: "/sparkamplify.png",
-    role: "Full Stack Engineer | Outsourcing",
-    link: "https://www.sparkamplify.com",
-    description:
-      "SparkAmplify is a PR platform that connects companies with journalists and influencers. I optimized data queries and processing, significantly improving platform performance and efficiency.",
-  },
-];
