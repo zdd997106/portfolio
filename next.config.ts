@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  env: {
-    API_URL: process.env.API_URL,
-  },
+  rewrites: async () => [
+    {
+      source: "/media/:path*",
+      destination: `${process.env.MEDIA_URL}/:path*`,
+    },
+  ],
 };
 
 export default nextConfig;

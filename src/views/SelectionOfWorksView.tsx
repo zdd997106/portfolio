@@ -3,6 +3,7 @@
 import { Stack, Typography } from "@mui/material";
 
 import { Portfolio } from "src/types";
+import { createMediaUrl } from "src/utils/createMediaUrl";
 import ProjectCard from "src/components/ProjectCard";
 
 // ----------
@@ -36,7 +37,7 @@ export default function SelectionOfWorksView({
         {data.items.map((work, index) => (
           <ProjectCard
             key={index}
-            img={work.img.url}
+            img={createMediaUrl(work.img)}
             title={work.title}
             subtitle={work.role}
             link={work.link}

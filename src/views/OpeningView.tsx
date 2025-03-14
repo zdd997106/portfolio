@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
 
 import { Portfolio } from "src/types";
+import { createMediaUrl } from "src/utils/createMediaUrl";
 
 // ----------
 
@@ -17,7 +18,7 @@ export default function OpeningView({ data }: OpeningViewProps) {
   const sections = {
     profileImage: (
       <ProfileImage>
-        <Box component="img" src="/image.jpg" />
+        <Box component="img" src={createMediaUrl(data.avatar)} />
       </ProfileImage>
     ),
     text: (
@@ -36,7 +37,7 @@ export default function OpeningView({ data }: OpeningViewProps) {
       <Stack direction="row" spacing={2}>
         <ContrastButton href="#contact">Contact me</ContrastButton>
 
-        <ContrastButton variant="outlined" href={data.cv.url}>
+        <ContrastButton variant="outlined" href={createMediaUrl(data.cv)}>
           Download CV
         </ContrastButton>
       </Stack>
