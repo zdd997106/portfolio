@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { IconButton, Link, Stack, styled, Typography } from "@mui/material";
 import Icons from "src/icons";
 
@@ -26,7 +27,15 @@ export default function ProjectCard({
   // --- ELEMENT SECTIONS ---
 
   const sections = {
-    image: <ImageCard src={img} sx={{ flexShrink: 0, width: { md: 450 } }} />,
+    image: (
+      <ImageCard
+        src={img!}
+        width={450}
+        height={338}
+        alt="Project Image"
+        sx={{ flexShrink: 0, width: { md: 450 } }}
+      />
+    ),
     titles: (
       <Stack spacing={0.5}>
         <Typography variant="h4" fontWeight={700}>
@@ -95,7 +104,7 @@ export default function ProjectCard({
 
 // ----- STYLED -----
 
-const ImageCard = styled("img")(({ theme }) => ({
+const ImageCard = styled(Image)(({ theme }) => ({
   height: "auto",
   width: "100%",
   aspectRatio: "4 / 3",

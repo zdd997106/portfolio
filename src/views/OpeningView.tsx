@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment } from "react";
+import Image from "next/image";
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
 
 import { Portfolio } from "src/types";
@@ -18,7 +19,12 @@ export default function OpeningView({ data }: OpeningViewProps) {
   const sections = {
     profileImage: (
       <ProfileImage>
-        <Box component="img" src={createMediaUrl(data.avatar)} />
+        <Image
+          src={createMediaUrl(data.avatar)}
+          width={480}
+          height={400}
+          alt="Avatar"
+        />
       </ProfileImage>
     ),
     text: (
@@ -37,7 +43,10 @@ export default function OpeningView({ data }: OpeningViewProps) {
       <Stack direction="row" spacing={2}>
         <ContrastButton href="#contact">Contact me</ContrastButton>
 
-        <ContrastButton variant="outlined" href={createMediaUrl(data.cv)}>
+        <ContrastButton
+          variant="outlined"
+          href={`${createMediaUrl(data.cv)}?filename=${encodeURIComponent("Zedd-Zhong-CV")}`}
+        >
           Download CV
         </ContrastButton>
       </Stack>
@@ -78,12 +87,13 @@ const Root = styled(Stack)(() => ({
   "& > div": { flexShrink: 0, flexBasis: 1 },
 }));
 
-const ProfileImage = styled(Box)(() => ({
+const ProfileImage = styled(Box)(({ theme }) => ({
   height: "min(400px, 80vw)",
   width: "min(400px, 80vw)",
   borderRadius: "40%",
   rotate: "16deg",
   overflow: "clip",
+  background: theme.palette.action.hover,
 
   img: {
     height: "100%",
