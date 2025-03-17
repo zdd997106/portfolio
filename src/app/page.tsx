@@ -17,12 +17,13 @@ const revalidate = Number(process.env.REVALIDATE || 60);
 // ----------
 
 export default async function Page() {
-  const response = await fetch(`${process.env.API_URL}`, {
+  const response = await fetch(`${process.env.API_URL}/projects/portfolio`, {
     next: { revalidate },
     headers: {
-      // [NOTE]: This is a workaround to bypass the Vercel protection for the API
       [`x-vercel-protection-bypass`]:
         process.env.API_VERCEL_AUTOMATION_BYPASS_SECRET || "",
+      [`x-zpanel-protection-bypass`]:
+        process.env.API_ZPANEL_AUTOMATION_BYPASS_SECRET || "",
     },
   });
 
