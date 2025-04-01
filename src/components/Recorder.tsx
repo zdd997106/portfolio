@@ -21,13 +21,17 @@ export default function Recorder() {
   useEffect(() => {
     if (!recording) return;
 
-    onReenter();
-    const timeout = setInterval(() => {
+    const timeout = setTimeout(() => {
+      onReenter();
+    }, 5 * 1000); // Make sure the user is not just switching tabs, 5 seconds for debouncing
+
+    const interval = setInterval(() => {
       onUpdate();
     }, 60 * 1000);
 
     return () => {
-      clearInterval(timeout);
+      clearTimeout(timeout);
+      clearInterval(interval);
     };
   }, [recording]);
 
