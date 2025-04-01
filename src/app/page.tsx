@@ -1,6 +1,7 @@
 import { Box, Container, Stack } from "@mui/material";
 
 import DotsMask from "src/components/DotsMask";
+import Recorder from "src/components/Recorder";
 import { Api, PortfolioDto } from "src/types";
 
 import AboutView from "src/views/AboutView";
@@ -122,6 +123,8 @@ export default async function Page() {
       {sections.services}
       {sections.about}
       {sections.form}
+
+      <Recorder />
     </>
   );
 }
