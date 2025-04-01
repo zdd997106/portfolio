@@ -5,7 +5,10 @@ import Image from "next/image";
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
 
 import { Portfolio } from "src/types";
-import { createMediaUrl } from "src/utils/createMediaUrl";
+import {
+  createDownloadMediaUrl,
+  createMediaUrl,
+} from "src/utils/createMediaUrl";
 
 // ----------
 
@@ -45,7 +48,7 @@ export default function OpeningView({ data }: OpeningViewProps) {
 
         <ContrastButton
           variant="outlined"
-          href={`${createMediaUrl(data.cv)}?filename=${encodeURIComponent("Zedd-Zhong-CV")}`}
+          href={`${createDownloadMediaUrl(data.cv)}?filename=${encodeURIComponent("Zedd-Zhong-CV")}`}
         >
           Download CV
         </ContrastButton>
