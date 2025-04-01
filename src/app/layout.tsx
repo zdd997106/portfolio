@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import "./globals.css";
+import { DialogsProvider } from "gexii";
+
 import { ThemeProvider } from "src/theme";
 import AppBar from "src/components/Appbar";
+
+import "./globals.css";
+
+// ----------
 
 export const metadata: Metadata = {
   title: "Zedd's Portfolio",
@@ -19,8 +24,10 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider>
-            <AppBar />
-            {children}
+            <DialogsProvider>
+              <AppBar />
+              {children}
+            </DialogsProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
