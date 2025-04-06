@@ -47,19 +47,20 @@ export default async function Page() {
     ),
 
     selectionOfWorks: (
-      <Container component={Box} paddingY={{ xs: 10, md: 15 }}>
+      <Container id="works" component={Box} paddingY={{ xs: 10, md: 15 }}>
         <SelectionOfWorksView data={data.selectionOfWorks} />
       </Container>
     ),
 
     selectionOfIdeas: (
-      <Container component={Box} paddingY={{ xs: 10, md: 15 }}>
+      <Container id="ideas" component={Box} paddingY={{ xs: 10, md: 15 }}>
         <SelectionOfIdeasView data={data.selectionOfIdeas} />
       </Container>
     ),
 
     services: (
       <Box
+        id="services"
         bgcolor="primary.main"
         color="primary.contrastText"
         position="relative"
@@ -79,7 +80,7 @@ export default async function Page() {
     ),
 
     about: (
-      <Box position="relative">
+      <Box position="relative" id="about">
         <Container
           component={Box}
           paddingY={{ xs: 10, md: 15 }}
