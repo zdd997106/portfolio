@@ -27,4 +27,12 @@ export const overwrites: Components<Theme> = {
       },
     },
   },
+
+  MuiMenuItem: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        ...theme.typography.body2,
+      }),
+    },
+  },
 };

@@ -2,7 +2,17 @@
 
 import { Fragment } from "react";
 import Image from "next/image";
-import { Box, Button, Stack, styled, Typography } from "@mui/material";
+import { Popover } from "gexii";
+import {
+  Box,
+  Button,
+  Link,
+  MenuItem,
+  MenuList,
+  Stack,
+  styled,
+  Typography,
+} from "@mui/material";
 
 import { Portfolio } from "src/types";
 import {
@@ -46,12 +56,31 @@ export default function OpeningView({ data }: OpeningViewProps) {
       <Stack direction="row" spacing={2}>
         <ContrastButton href="#contact">Contact me</ContrastButton>
 
-        <ContrastButton
-          variant="outlined"
-          href={`${createDownloadMediaUrl(data.cv)}?filename=${encodeURIComponent("Zedd-Zhong-CV")}`}
+        <Popover
+          spacing={0.5}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          transformOrigin={{ vertical: "top", horizontal: "center" }}
+          content={
+            <MenuList>
+              {[
+                { media: data.cv.doc, label: "Word (.docx)" },
+                { media: data.cv.pdf, label: "PDF (.pdf)" },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  download
+                  href={`${createDownloadMediaUrl(item.media)}?filename=${encodeURIComponent("zedd_zhong_cv")}`}
+                  underline="none"
+                  color="textPrimary"
+                >
+                  <MenuItem>{item.label}</MenuItem>
+                </Link>
+              ))}
+            </MenuList>
+          }
         >
-          Download CV
-        </ContrastButton>
+          <ContrastButton variant="outlined">Download CV</ContrastButton>
+        </Popover>
       </Stack>
     ),
   };
