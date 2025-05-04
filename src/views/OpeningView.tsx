@@ -57,6 +57,7 @@ export default function OpeningView({ data }: OpeningViewProps) {
         <ContrastButton href="#contact">Contact me</ContrastButton>
 
         <Popover
+          variant="hover"
           spacing={0.5}
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           transformOrigin={{ vertical: "top", horizontal: "center" }}
